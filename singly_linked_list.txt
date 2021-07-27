@@ -1,0 +1,344 @@
+
+class yashnode
+{
+    int data;
+    yashnode next;
+    yashnode(int d)
+    {
+        this.data=d;
+        next=null;
+
+    }
+}
+
+public class yash_Singley
+{
+    yashnode head;
+    public void addlast(int data)
+    {
+        yashnode newnode=new yashnode(data);
+        newnode.next=null;
+        if(head==null)
+        {
+            head=newnode;
+        }
+        else {
+
+            yashnode current=head;
+            while(current.next!=null)
+            {
+                current=current.next;
+            }
+            current.next=newnode;
+
+        }
+    }
+    public void firstadd(int data)
+    {
+        yashnode newnode=new yashnode(data);
+        newnode.next=head;
+        head=newnode;
+    }
+    public  yashnode print(yashnode head)
+    {
+        if(head==null)
+        {
+            System.out.println("empty");
+        }
+        yashnode current=head;
+        while(current!=null)
+        {
+
+            System.out.print(" "+current.data);
+            current=current.next;
+        }
+        return current;
+    }
+    public void atgivenpos( int data,int pos)
+    {
+        yashnode newnode=new yashnode(data);
+        newnode.next=null;
+        if(pos==1)
+        {
+            newnode.next=head;
+            head=newnode;
+        }
+        else
+        {
+            yashnode pre=head;
+            int count=1;
+            while(count<pos-1)
+            {
+                pre=pre.next;
+                count++;
+            }
+            yashnode current=pre.next;
+            newnode.next=current;
+            pre.next=newnode;
+        }
+    }
+    public void deletefirt()
+    {
+        if(head==null)
+        {
+            System.out.println("empty");
+        }
+        else
+        {
+            yashnode temp=head;
+            head=head.next;
+            temp.next=null;
+            System.out.println("deleted:"+temp.data);
+        }
+    }
+    public void lastdelete()
+    {
+        if(head==null||head.next==null)
+        {
+            System.out.println(head);
+        }
+        else
+        {
+            yashnode current=head;
+            yashnode pre=null;
+            while(current.next!=null)
+            {
+                pre=current;
+                current=current.next;
+            }
+            pre.next=null;
+            System.out.println("deleted last element :"+current.data);
+
+        }
+
+    }
+    public void deleteatposition(int pos)
+    {
+        if(pos==1)
+        {
+            head=head.next;
+            //return head;
+        }
+        else
+        {
+            yashnode pre=head;
+            int count=1;
+            while(count<pos-1)
+            {
+                pre=pre.next;
+                count++;
+            }
+            yashnode current=pre.next;
+            pre.next=current.next;
+            //System.out.println("deleted element :"+current.data);
+        }
+    }
+
+    public boolean find(yashnode head, int key)
+    {
+        if(head==null)
+        {
+            return false;
+        }
+        yashnode current=head;
+        while(current!=null)
+        {
+            if(current.data==key)
+            {
+                return true;
+            }
+            current=current.next;
+        }
+        return false;
+    }
+    public yashnode reverse(yashnode head)
+    {
+        if(head==null)
+        {
+            return head;
+        }
+        yashnode pre=null;
+        yashnode current=head;
+        yashnode next=null;
+        while(current!=null)
+        {
+            next=current.next;
+            current.next=pre;
+            pre=current;
+            current=next;
+
+        }
+        return pre;
+
+    }
+    public yashnode getMiddlenode()
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        yashnode slow_ptr =head;
+        yashnode fast_ptr=head;
+        while(fast_ptr!=null && fast_ptr.next!=null)
+        {
+            slow_ptr=slow_ptr.next;
+            fast_ptr=fast_ptr.next.next;
+        }
+        return slow_ptr;
+    }
+    public yashnode getNthFromLast(int n)
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        if(n<=0)
+        {
+             throw  new IllegalArgumentException("invalid:"+n);
+        }
+        yashnode main_ptr=head;
+        yashnode dup_ptr=head;
+        int count=0;
+        while(count<n)
+        {
+            dup_ptr=dup_ptr.next;
+            count++;
+        }
+        while(dup_ptr!=null)
+        {
+            dup_ptr=dup_ptr.next;
+            main_ptr=main_ptr.next;
+        }
+        return main_ptr;
+    }
+
+    public yashnode getNthFromstrat(int n)
+    {
+        if(head==null)
+        {
+            return null;
+        }
+        //yashnode main_ptr=head;
+        yashnode dup_ptr=head;
+        int count=0;
+        while(count<n)
+        {
+            dup_ptr=dup_ptr.next;
+            //main_ptr=main_ptr.next;
+            count++;
+        }
+
+        return dup_ptr;
+    }
+
+    public void removeDup()
+    {
+        if(head==null)
+        {
+            return;
+        }
+        yashnode current=head;
+        while(current!=null && current.next!=null)
+        {
+            if(current.data== current.next.data)
+            {
+                current.next=current.next.next;
+            }
+            else
+            {
+                current=current.next;
+            }
+        }
+
+    }
+    public void print1()
+    {
+        if(head==null)
+        {
+            return;
+        }
+
+        yashnode current=head;
+        while(current.next!=null)
+        {
+            System.out.print(" "+current.data);
+            current=current.next;
+
+        }
+    }
+    public yashnode insertNodeSortedList(int data)
+    {
+        yashnode newnode=new yashnode(data);
+        if(head==null)
+        {
+            return newnode;
+        }
+        yashnode current=head;
+        yashnode temp=null;
+        while(current!=null && current.data<newnode.data)
+        {
+            temp=current;
+            current=current.next;
+
+        }
+        newnode.next=current;
+        temp.next=newnode;
+        return head;
+    }
+
+    public static void main(String args[])
+    {
+        yash_Singley obj=new yash_Singley();
+        obj.addlast(1);
+        //obj.addlast(1);
+        obj.addlast(2);
+       // obj.addlast(2);
+        obj.addlast(3);
+        obj.addlast(4);
+     //   obj.addlast(4);
+
+        obj.addlast(5);
+        obj.addlast(8);
+       // System.out.println("before inseterd");
+        obj.print1();
+//        obj.insertNodeSortedList(5);
+//        System.out.println("\n after inserted 5");
+//        obj.print1();
+
+       // obj.firstadd(20);
+       // obj.atgivenpos(8,5);
+       // obj.deletefirt();
+      //  obj.lastdelete();
+      //  obj.deleteatposition(3);
+
+
+        //obj.reverse()
+        // obj.print(obj.head);
+//        if(obj.find(obj.head,3))
+//        {
+//            System.out.println("\nfound");
+//        }
+//        else
+//        {
+//            System.out.println("\nnot found");
+//        }
+ //       yashnode result=obj.reverse(obj.head);
+ //       obj.print(result);
+//        yashnode midlenode=obj.getMiddlenode();
+//        System.out.println("middle node:"+midlenode.data);
+
+//
+//        yashnode NthFromstart=obj.getNthFromstrat(2);
+//        System.out.println("middle node:"+NthFromstart.data);
+
+//        yashnode NthFromlast=obj.getNthFromLast(-1);
+//        System.out.println("middle node:"+NthFromlast.data);
+
+//        System.out.println("before duplicates");
+//        obj.print1();
+//        obj.removeDup();
+//        System.out.println("\nafter duplicates");
+//        obj.print1();
+    }
+
+}
